@@ -65,5 +65,19 @@
   </footer>
 
 </div>
+
+<script>
+// Supabase sends auth links to the project's Site URL whenever the link itself
+// doesn't name a redirect — that covers the dashboard's "Send password
+// recovery" button and email-confirmation links. Site URL has to stay the site
+// root so confirmations land somewhere sensible, so recovery tokens arriving
+// here are forwarded to the page that can actually handle them, hash intact.
+(function () {
+  var h = window.location.hash || "";
+  if (h.indexOf("type=recovery") !== -1 || h.indexOf("access_token=") !== -1) {
+    window.location.replace("reset.html" + h);
+  }
+})();
+</script>
 </body>
 </html>
